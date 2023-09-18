@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using Test.filters;
 using Test.Models;
 
 namespace Test.Controllers;
@@ -12,12 +13,14 @@ public class HomeController : Controller
     {
         _logger = logger;
     }
-
+    
+    [TypeFilter(typeof(TokenAuthorizationFilter))]
     public IActionResult Index()
     {
         return View();
     }
 
+    [TypeFilter(typeof(TokenResultFilter))]
     public IActionResult Privacy()
     {
         return View();
