@@ -12,5 +12,9 @@
   "license": "ISC",
   "devDependencies": {
     "tailwindcss": "^3.3.3"
+  },
+  "dependencies": {
+    "codemirror": "^5.65.15",
+    "lucide": "^0.279.0"
   }
 }

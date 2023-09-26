@@ -15,4 +15,8 @@
   <Exec Command="npm run css:build"/>
 </Target>
 
+<Target Name="Tailwind" BeforeTargets="Start">
+  <Exec Command="npm run css:build"/>
+</Target>
+
 </Project>

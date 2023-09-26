@@ -1,6 +1,38 @@
 ﻿@{
+    
     ViewData["Title"] = "Privacy Policy";
+    ViewBag.Topic = new List<Content>();
+    ViewBag.Topic.add(new Content());
+    ViewBag.Topic.add(new Content("C#",new string[]{"OOP", "Collection"}));
+    ViewBag.Interview = "Interview";
 }
-<h1>@ViewData["Title"]</h1>
+<div>
+    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-move-left"><path d="M6 8L2 12L6 16"/><path d="M2 12H22"/></svg>
+</div>
 
-<p>Use this page to detail your site's privacy policy.</p>
+<div class="flex justify-around">
+    <div class="w-96">
+       
+
+        <div class="flex">
+            <h3>@ViewBag.Interview</h3>
+            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-indent"><polyline points="3 8 7 12 3 16"/><line x1="21" x2="11" y1="12" y2="12"/><line x1="21" x2="11" y1="6" y2="6"/><line x1="21" x2="11" y1="18" y2="18"/></svg>
+        </div>
+        @foreach (Content c in ViewBag.Topic)
+        {
+            <ul>
+                c
+            </ul>
+
+            @foreach (string q in c.Questions)
+            {
+                <li>@q</li>
+            }
+            
+        }
+       
+    </div>
+    
+    <div class="w-full shadow-lg">Content</div>
+    <div class="w-64">Chat</div>
+</div>

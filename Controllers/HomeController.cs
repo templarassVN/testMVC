@@ -19,9 +19,13 @@ public class HomeController : Controller
     {
         return View();
     }
-
-    [TypeFilter(typeof(TokenResultFilter))]
+    
     public IActionResult Privacy()
+    {
+        return View();
+    }
+    
+    public IActionResult Learning()
     {
         return View();
     }

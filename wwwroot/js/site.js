@@ -1,4 +1,10 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
+﻿// Recommended way, to include only the icons you need.
+import { createIcons, Menu, ArrowRight, Globe } from 'lucide';
 
-// Write your JavaScript code.
+createIcons({
+    icons: {
+        Menu,
+        ArrowRight,
+        Globe
+    }
+});
