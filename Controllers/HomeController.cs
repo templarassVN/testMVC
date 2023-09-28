@@ -29,10 +29,37 @@ public class HomeController : Controller
     {
         return View();
     }
-    
-    public IActionResult Interview()
+
+    List<CategoryContent> createMock()
     {
-        return View();
+        List<CategoryContent> contents = new List<CategoryContent>();
+        CategoryContent c1 = new CategoryContent();
+        c1.Type = 'A';
+        c1.Questions.Add(new Question("WTF?","VCL"));
+        c1.Questions.Add(new Question("WTF1?","VCL1"));
+        CategoryContent c2 = new CategoryContent();
+        c2.Type = 'B';
+        c2.Questions.Add(new Question("q1w2?","q1w2"));
+        c2.Questions.Add(new Question("q1w2e3?","q1w2e3"));
+        contents.Add(c1);
+        contents.Add(c2);
+        return contents;
+    }
+    
+    public IActionResult Interview([FromQuery] char type = ' ')
+    {
+        List<CategoryContent> total = createMock();
+        List<CategoryContent> results = total;
+        if(type != ' ')
+            results = total.FindAll(o => o.Type == type);
+        return View(results);
+    }
+
+    public IActionResult TestComponent([FromQuery] char data)
+    {
+        CategoryContent c = new CategoryContent();
+        c.Type = data;
+        return ViewComponent("Data", new { categoryContent = c});
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

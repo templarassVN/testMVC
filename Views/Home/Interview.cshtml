@@ -1,3 +1,18 @@
+@model IEnumerable<CategoryContent>
+https://www.tailwindawesome.com/resources/astrolus/demo
+@foreach (CategoryContent c in Model)
+{
+  <div>@c.Type</div>
+}
+<form action="/home/interview">
+  <label for="type">Type:</label>
+  <input type="text" id="type" name="type"><br><br>
+  <input type="submit" value="Submit">
+</form>
+
+<button id="test">Get me</button>
+<div id="testResult"></div>
+
 <div class="bg-white">
   <div>
     <!--
