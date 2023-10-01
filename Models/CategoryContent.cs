@@ -2,13 +2,15 @@
 namespace Test.Models;
 public class Question
 {
+    public int Q_type { get; set; }
     public string Q { get; set; } 
     public string A { get; set; }
 
-    public Question(string q, string a)
+    public Question(string q, string a, int q_type = 0)
     {
         Q = q;
         A = a;
+        Q_type = q_type;
     }
 }
 
