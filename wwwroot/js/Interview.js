@@ -1,6 +1,7 @@
 
 document.getElementById("test").addEventListener("click", async () =>{
-    const response = await fetch("Home/TestComponent?data=A", {method : "GET"});
+    // const response = await fetch("Home/TestComponent?data=A", {method : "GET"});
+    const response = await fetch("Home/Filter?data=A", {method : "GET"});
     const text = await response.text();
     document.getElementById("testResult").innerHTML = text;
 })
