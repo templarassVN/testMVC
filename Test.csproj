@@ -11,12 +11,16 @@
     <UpToDateCheckBuilt Include="tailwind.config.js" Set="Css" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Markdig" Version="0.33.0" />
+  </ItemGroup>
+
 <Target Name="Tailwind" BeforeTargets="Build">
-  <Exec Command="npm run css:build"/>
+  <Exec Command="npm run css:build" />
 </Target>
 
 <Target Name="Tailwind" BeforeTargets="Start">
-  <Exec Command="npm run css:build"/>
+  <Exec Command="npm run css:build" />
 </Target>
 
 </Project>

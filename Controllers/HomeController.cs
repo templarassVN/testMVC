@@ -1,9 +1,17 @@
 ﻿using System.Diagnostics;
+using Markdig;
 using Microsoft.AspNetCore.Mvc;
 using Test.filters;
 using Test.Models;
 
 namespace Test.Controllers;
+
+public class mod
+{
+    public string markdown { get; set; }
+    
+    public string name { get; set; }
+}
 
 public class HomeController : Controller
 {
@@ -19,10 +27,20 @@ public class HomeController : Controller
     {
         return View();
     }
-    
+    [HttpPost]
+    public IActionResult Create([FromBody] mod Md)
+    {
+        
+        MarkdownMock.GetInstance().topic.Add(Md.markdown);
+        List<string> tmp = MarkdownMock.GetInstance().topic;
+        return RedirectToAction("Privacy");
+    }
+    [HttpGet]
     public IActionResult Privacy()
     {
-        return View();
+        List<string> tmp = MarkdownMock.GetInstance().topic;
+        var result = tmp.Select(x => Markdown.ToHtml(x));
+        return View(result);
     }
     
     public IActionResult Learning()
@@ -53,6 +71,12 @@ public class HomeController : Controller
         if(type != ' ')
             results = total.FindAll(o => o.Type == type);
         return View(results);
+    }
+    
+    public IActionResult Filter([FromQuery] char type = ' ')
+    {
+       
+        return View();
     }
 
     public IActionResult TestComponent([FromQuery] char data)
