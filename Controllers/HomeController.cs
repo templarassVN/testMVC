@@ -3,6 +3,7 @@ using Markdig;
 using Microsoft.AspNetCore.Mvc;
 using Test.filters;
 using Test.Models;
+using Test.Models.Dto;
 
 namespace Test.Controllers;
 
@@ -16,7 +17,6 @@ public class mod
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
-
     public HomeController(ILogger<HomeController> logger)
     {
         _logger = logger;
@@ -48,29 +48,24 @@ public class HomeController : Controller
         return View();
     }
 
-    List<CategoryContent> createMock()
-    {
-        List<CategoryContent> contents = new List<CategoryContent>();
-        CategoryContent c1 = new CategoryContent();
-        c1.Type = 'A';
-        c1.Questions.Add(new Question("WTF?","VCL"));
-        c1.Questions.Add(new Question("WTF1?","VCL1"));
-        CategoryContent c2 = new CategoryContent();
-        c2.Type = 'B';
-        c2.Questions.Add(new Question("q1w2?","q1w2"));
-        c2.Questions.Add(new Question("q1w2e3?","q1w2e3"));
-        contents.Add(c1);
-        contents.Add(c2);
-        return contents;
-    }
+   
     
-    public IActionResult Interview([FromQuery] char type = ' ')
+    public IActionResult Interview([FromQuery] string behavior = "")
     {
-        List<CategoryContent> total = createMock();
-        List<CategoryContent> results = total;
-        if(type != ' ')
-            results = total.FindAll(o => o.Type == type);
-        return View(results);
+        Mock.createMock();
+        Mock.createMockFilter();
+        List<Category> results = Mock.Categories;
+       
+        List<FilteredCategoryContentQueryDto> tmp = Mock.filtered;
+         return View(results);
+    }
+
+    public IActionResult CategoryContent([FromQuery] string name)
+    {
+        Mock.createMockFilter();
+      
+        
+        return ViewComponent("CategoryContent", new { categoryContent = Mock.filtered});
     }
     
     public IActionResult Filter([FromQuery] char type = ' ')
@@ -79,12 +74,12 @@ public class HomeController : Controller
         return View();
     }
 
-    public IActionResult TestComponent([FromQuery] char data)
-    {
-        CategoryContent c = new CategoryContent();
-        c.Type = data;
-        return ViewComponent("Data", new { categoryContent = c});
-    }
+    // public IActionResult TestComponent([FromQuery] char data)
+    // {
+    //     CategoryContent c = new CategoryContent();
+    //     c.Type = data;
+    //     return ViewComponent("Data", new { categoryContent = c});
+    // }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()

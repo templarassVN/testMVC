@@ -1,1 +1,1 @@
-import 'flowbite';
+import * as f from 'flowbite';

@@ -1,8 +1,11 @@
 const path = require('path');
 module.exports = {
-    entry: './wwwroot/js/import.js',
+    entry: {
+        import : './wwwroot/js/import.js',
+        learning: './wwwroot/js/Learning.js'
+    },
     output: {
         path: path.join(__dirname, '/wwwroot/js/dist'),
-        filename: 'bundle.js',
+        filename: '[name].bundle.js'
     },
 }
