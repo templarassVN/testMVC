@@ -3,7 +3,6 @@ using Markdig;
 using Microsoft.AspNetCore.Mvc;
 using Test.filters;
 using Test.Models;
-using Test.Models.Dto;
 
 namespace Test.Controllers;
 
@@ -52,27 +51,9 @@ public class HomeController : Controller
     
     public IActionResult Interview([FromQuery] string behavior = "")
     {
-        Mock.createMock();
-        Mock.createMockFilter();
-        List<Category> results = Mock.Categories;
-       
-        List<FilteredCategoryContentQueryDto> tmp = Mock.filtered;
-         return View(results);
-    }
-
-    public IActionResult CategoryContent([FromQuery] string name)
-    {
-        Mock.createMockFilter();
-      
-        
-        return ViewComponent("CategoryContent", new { categoryContent = Mock.filtered});
-    }
-    
-    public IActionResult Filter([FromQuery] char type = ' ')
-    {
-       
         return View();
     }
+    
 
     // public IActionResult TestComponent([FromQuery] char data)
     // {
