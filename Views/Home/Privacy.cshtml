@@ -1,38 +1,37 @@
 ﻿@{
-    
-    ViewData["Title"] = "Privacy Policy";
-    ViewBag.Topic = new List<Content>();
-    ViewBag.Topic.add(new Content());
-    ViewBag.Topic.add(new Content("C#",new string[]{"OOP", "Collection"}));
-    ViewBag.Interview = "Interview";
+    ViewBag.Text = new string[]{"Learn","Practice","Interview"};
 }
-<div>
-    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-move-left"><path d="M6 8L2 12L6 16"/><path d="M2 12H22"/></svg>
-</div>
+<div class="h-screen grid grid-cols-2 gap-8">
+    <div class="m-10">
+        <div class="text-7xl mr-20">
+                @foreach (string text in ViewBag.Text)
+                {
+                     <div class="my-8"><strong>@text</strong></div>
+                }
 
-<div class="flex justify-around">
-    <div class="w-96">
-       
 
-        <div class="flex">
-            <h3>@ViewBag.Interview</h3>
-            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-indent"><polyline points="3 8 7 12 3 16"/><line x1="21" x2="11" y1="12" y2="12"/><line x1="21" x2="11" y1="6" y2="6"/><line x1="21" x2="11" y1="18" y2="18"/></svg>
+               @*  @foreach (string text in ViewBag.Text)
+                {
+                    <span class="my-8">@text</span>
+                } *@
         </div>
-        @foreach (Content c in ViewBag.Topic)
-        {
-            <ul>
-                c
-            </ul>
-
-            @foreach (string q in c.Questions)
-            {
-                <li>@q</li>
-            }
+        <div class="m-16">
+            <div>Great developer</div>
+            <div>Set foot in the challenged adventure lying ahead </div>
             
-        }
-       
+            <button type="button" class="w-full text-gray-900 bg-gradient-to-r from-teal-200 to-lime-200 hover:bg-gradient-to-l hover:from-teal-200 hover:to-lime-200 focus:ring-4 focus:outline-none focus:ring-lime-200 dark:focus:ring-teal-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">
+                Let's Start
+                </button>
+            
+            
+        </div>
     </div>
-    
-    <div class="w-full shadow-lg">Content</div>
-    <div class="w-64">Chat</div>
+    <div class="flex items-center w-full bg-gradient-to-b from-sky-600 via-cyan-300 to-lime-100">
+        <div class="relative -left-20 h-max w-full shadow-xl rounded-lg bg-slate-200 mt-9/20">
+            <img src="~/img/landing_2.jpg"/>
+        </div>
+    </div>
 </div>
+
+
+<script src="~/js/form.js"></script>
