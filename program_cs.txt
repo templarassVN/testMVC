@@ -1,0 +1,83 @@
+using Microsoft.CodeAnalysis.CSharp.Scripting;
+using Microsoft.CodeAnalysis.Scripting;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
+using static code.Test;
+
+namespace code;
+public class Globals
+{
+    public int X;
+    public int Y;
+}
+
+
+public class Test
+{
+    
+    public async Task Run(string codes)
+    {
+        var options = ScriptOptions.Default
+            .WithReferences(typeof(object).Assembly)
+            .WithImports("System");
+        var script = CSharpScript.Create<int>(
+            " public class Solution { public int Add(int x, int y){  return x + y;  } } new Solution().Add(X, Y)",
+            options, globalsType: typeof(Globals));
+        script.Compile();
+
+        for (int i = 0; i < 10; i++)
+        {
+            Console.WriteLine((await script.RunAsync(new Globals { X = i, Y = i })).ReturnValue);
+        }
+    }
+}
+class Program
+{
+    static async Task Main(string[] args)
+    {
+        string tmp = "class Solution {\n  public int Add(int a, int b) {\n    return a + b;\n  }\n} new Solution.Add(X,Y);";
+        string fileName = @"Solution.cs";
+        string pattern = @"(\n|\r|\t)";
+        string replacement = " ";
+        string processedString = Regex.Replace(tmp, pattern, replacement);
+
+        var t = new Test();
+        await t.Run(processedString);
+
+
+        //try
+        //{
+        //    // Check if file already exists. If yes, delete it.
+        //    if (File.Exists(fileName))
+        //    {
+        //        File.Delete(fileName);
+        //    }
+
+        //    // Create a new file
+        //    using (FileStream fs = File.Create(fileName))
+        //    {
+        //        // Add some text to file
+        //        Byte[] title = new UTF8Encoding(true).GetBytes(processedString);
+        //        fs.Write(title, 0, title.Length);
+        //    }
+
+        //    // Open the stream and read it back.
+        //    using (StreamReader sr = File.OpenText(fileName))
+        //    {
+        //        string s = "";
+        //        while ((s = sr.ReadLine()) != null)
+        //        {
+        //            Console.WriteLine(s);
+        //        }
+        //    }
+            
+
+        //}
+        //catch (Exception Ex)
+        //{
+        //    Console.WriteLine(Ex.ToString());
+        //}
+    }
+}

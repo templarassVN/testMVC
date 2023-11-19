@@ -1,9 +1,15 @@
 ﻿using System.Diagnostics;
+using CliWrap;
+using CliWrap.Buffered;
 using Microsoft.AspNetCore.Mvc;
 using Test.filters;
 using Test.Models;
 
 namespace Test.Controllers;
+public class Submisson
+{
+    public string code { get; set; }
+}
 
 public class HomeController : Controller
 {
@@ -13,6 +19,8 @@ public class HomeController : Controller
     {
         _logger = logger;
     }
+
+    
     
     [TypeFilter(typeof(TokenAuthorizationFilter))]
     public IActionResult Index()
@@ -53,6 +61,19 @@ public class HomeController : Controller
         if(type != ' ')
             results = total.FindAll(o => o.Type == type);
         return View(results);
+    }
+    [HttpPost]
+    public async Task<string> Code([FromBody] Submisson code)
+    {
+        var tmp =Directory.GetCurrentDirectory();
+        var path = Path.GetFullPath( Path.Combine(tmp, @"..\code")).Replace(@"\", @"/");
+        
+        var cmd = Cli.Wrap("dotnet")
+            .WithWorkingDirectory(path)
+            .WithArguments($"run {code.code}")
+            .WithValidation(CommandResultValidation.None); ;
+        var result = await cmd.ExecuteBufferedAsync() ;
+        return result.StandardOutput;
     }
 
     public IActionResult TestComponent([FromQuery] char data)
