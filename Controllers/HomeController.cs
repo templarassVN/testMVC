@@ -83,6 +83,11 @@ public class HomeController : Controller
         return ViewComponent("Data", new { categoryContent = c});
     }
 
+    public IActionResult Create()
+    {
+        return View();
+    }
+
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {
