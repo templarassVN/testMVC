@@ -1,0 +1,36 @@
+ private readonly ILogger<WeatherForecastController> _logger;
+ private readonly IBus publishEndpoint;
+
+ public WeatherForecastController(ILogger<WeatherForecastController> logger, IBus publishEndpoint)
+ {
+     _logger = logger;
+     this.publishEndpoint = publishEndpoint;
+ }
+
+ public async Task<int>? Put()
+ {
+     _logger.Log(LogLevel.Information, Request.HttpContext.Connection.RemoteIpAddress.ToString());
+     var tmp = await publishEndpoint.GetSendEndpoint(new Uri("Exchange:test"));
+     await tmp.Send(new DTO { id = 1, name = "asds" });
+     IEnumerable<int> a = new List<int>() { 1,2,3};
+     IEnumerable<int> b = new List<int>() { 1, 2, 3 };
+     a.Concat(b);
+
+
+
+     return 0;
+ }
+
+builder.Services.AddMassTransit(x =>
+{
+    // elided...
+
+    x.UsingRabbitMq((context, cfg) =>
+    {
+        cfg.Host("localhost", "/", h => {
+            h.Username("guest");
+            h.Password("guest");
+        });
+
+            });
+});
